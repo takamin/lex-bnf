@@ -1,15 +1,5 @@
-Lex-BNF
-=======
-
-The lexical token analyzer and BNF parser for JavaScript.
-
-Here is a sample that parses a SQL-like-sentence
-implemented to operate the AWS DynamoDb
-in the npm [aws-node-util](https://www.npmjs.com/package/aws-node-util):
-
-```javascript
 "use strict";
-const BNF = require("lex-bnf");
+const BNF = require("../index.js");
 
 //
 // Basic Terms
@@ -319,10 +309,4 @@ let source = `
 let result = parseSqlishQuery(source);
 
 console.log(`SOURCE:${source}
-RESULT:${JSON.stringify(result, null, "    ")}`);
-```
-
-LICENSE
--------
-
-This software is released under the MIT License, see [LICENSE](LICENSE)
+RESULT:${JSON.stringify(result, null, "    ")}`)
