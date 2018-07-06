@@ -8,7 +8,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "grunt lint && mocha",
+    "grunt": "grunt",
+    "generate-docs": "jsdoc --configure jsdoc.json --verbose"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,31 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "grunt": "^1.0.3",
+    "grunt-cli": "^1.2.0",
+    "grunt-eslint": "^21.0.0",
+    "jsdoc": "^3.5.5",
+    "load-grunt-tasks": "^4.0.0",
+    "minami": "^1.2.3",
     "mocha": "^5.2.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true,
+      "mocha": true
+    },
+    "globals": {
+      "ArrayBuffer": true
+    },
+    "rules": {
+      "no-console": "off",
+      "valid-jsdoc": "warn"
+    },
+    "extends": "eslint:recommended"
   }
 }
