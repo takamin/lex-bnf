@@ -1,4 +1,5 @@
 "use strict";
+const LexAnalyzer = require("../lib/lexana.js");
 const BNF = require("../index.js");
 
 //
@@ -249,7 +250,11 @@ let SQLISH_BNF_DEF = {
  */
 function parseSqlishQuery(source) {
 
-    let tokens = BNF.tokenize(source, SQLISH_LEX_TOKEN_DEF);
+    let lexTokens = LexAnalyzer.parse(source);
+    let bindedTokens = SQLISH_LEX_TOKEN_DEF.buildWords(lexTokens);
+    let tokens = bindedTokens.filter(
+        lex => lex != null && !lex.isWhiteSpace());
+
     if(tokens != null && !Array.isArray(tokens) && !tokens.match) {
         return tokens; // tokens is BNF.Result object.
     }
