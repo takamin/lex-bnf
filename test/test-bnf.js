@@ -275,4 +275,58 @@ describe("BNF", function() {
             });
         });
     });
+    describe("tokenize", ()=>{
+        describe("changed behaviors by the parameter tokenizer", ()=>{
+            const tokenizer = new BNF("tokens", {
+                "tokens": [
+                    ["token", "tokens"],
+                    ["token"],
+                ],
+                "token": [
+                    [ "comparators" ],
+                    [ BNF.ident ],
+                    [ BNF.lex("PUNCT") ],
+                    [ BNF.lex("WS") ],
+                ],
+                "comparators": [
+                    [ BNF.literal("<"), BNF.literal("=") ],
+                ],
+            }, {
+                "comparators": "PUNCT",
+            });
+            const source = `A <= B`;
+            it("should bind tokens and remove white spaces", ()=>{
+                const tokens = BNF.tokenize(source, tokenizer);
+                assert.equal(tokens.length, 3);
+                assert.equal(tokens[0]._term, "A");
+                assert.equal(tokens[1]._term, "<=");
+                assert.equal(tokens[2]._term, "B");
+            });
+            it("should not bind token but remove white spaces", ()=>{
+                const tokens = BNF.tokenize(source);
+                assert.equal(tokens.length, 4);
+                assert.equal(tokens[0]._term, "A");
+                assert.equal(tokens[1]._term, "<");
+                assert.equal(tokens[2]._term, "=");
+                assert.equal(tokens[3]._term, "B");
+            });
+            it("should not bind token and not remove white spaces", ()=>{
+                const tokens = BNF.tokenize(source, false);
+                assert.equal(tokens.length, 6);
+                assert.equal(tokens[0]._term, "A");
+                assert.equal(tokens[1]._type, "WS");
+                assert.equal(tokens[2]._term, "<");
+                assert.equal(tokens[3]._term, "=");
+                assert.equal(tokens[4]._type, "WS");
+                assert.equal(tokens[5]._term, "B");
+            });
+            it("should returns same resullt", ()=>{
+                assert.deepEqual(
+                    BNF.tokenize(source, tokenizer),
+                    tokenizer.buildWords(BNF.tokenize(source, false))
+                        .filter(lex => lex != null && !lex.isWhiteSpace())
+                );
+            });
+        });
+    });
 });
