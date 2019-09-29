@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/takamin/lex-bnf#readme",
   "dependencies": {
+    "debug": "^4.1.1",
     "deep-equal": "^1.0.1"
   },
   "devDependencies": {
