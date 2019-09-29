@@ -1,6 +1,6 @@
 {
   "name": "lex-bnf",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "The lexical token analyzer and BNF parser for JavaScript",
   "main": "index.js",
   "directories": {
