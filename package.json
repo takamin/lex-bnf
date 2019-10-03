@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "grunt lint && mocha",
+    "test": "grunt lint && mocha test/*.test.js",
     "grunt": "grunt",
     "generate-docs": "jsdoc --configure jsdoc.json --verbose"
   },
