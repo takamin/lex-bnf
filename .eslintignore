@@ -1,7 +1,3 @@
-/bower_components
-/build
 /docs
-/js/bundle-*.js
 /node_modules
-/sample
 /test

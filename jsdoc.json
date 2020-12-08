@@ -4,9 +4,9 @@
         "dictionaries": ["jsdoc"]
     },
     "source": {
-        "include": [ "lib", "package.json", "README.md"],
-        "includePattern": ".js$",
-        "excludePattern": "(node_modules|docs|data)"
+        "include": [ "lib", "sample", "package.json", "README.md"],
+        "includePattern": "\\.js$",
+        "excludePattern": "_.*\\.js$"
     },
     "plugins": [
         "plugins/markdown"
@@ -20,7 +20,8 @@
     "opts": {
         "destination": "./docs/",
         "encoding": "utf8",
-        "private": true,
+        "private": false,
+        "deprecated": false,
         "recurse": true,
         "template": "./node_modules/minami"
     }

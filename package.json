@@ -1,15 +1,16 @@
 {
   "name": "lex-bnf",
-  "version": "0.3.3",
-  "description": "The lexical token analyzer and BNF parser for JavaScript",
+  "version": "1.0.0",
+  "description": "General-purpose recursive descent parser and evaluator",
   "main": "index.js",
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "scripts": {
-    "test": "grunt lint && mocha test/*.test.js",
-    "grunt": "grunt",
+    "test": "mocha test/*.test.js",
+    "coverage": "nyc mocha test/*.test.js",
+    "lint": "eslint .",
     "generate-docs": "jsdoc --configure jsdoc.json --verbose"
   },
   "repository": {
@@ -17,9 +18,9 @@
     "url": "git+https://github.com/takamin/lex-bnf.git"
   },
   "keywords": [
-    "lex",
+    "lexical analysis",
     "BNF",
-    "parser"
+    "recursive descent parser"
   ],
   "author": "Koji Takami <vzg03566@gmail.com>",
   "license": "MIT",
@@ -28,22 +29,20 @@
   },
   "homepage": "https://github.com/takamin/lex-bnf#readme",
   "dependencies": {
-    "debug": "^4.1.1",
-    "deep-equal": "^2.0.3"
+    "debug": "^4.3.1",
+    "deep-equal": "^2.0.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "grunt": "^1.2.1",
-    "grunt-cli": "^1.3.2",
     "grunt-eslint": "^23.0.0",
-    "jsdoc": "^3.6.4",
-    "load-grunt-tasks": "^5.1.0",
+    "jsdoc": "^3.6.6",
     "minami": "^1.2.3",
-    "mocha": "^8.0.1"
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0"
   },
   "eslintConfig": {
     "parserOptions": {
-      "ecmaVersion": 2017
+      "ecmaVersion": 2020
     },
     "env": {
       "es6": true,
@@ -51,13 +50,7 @@
       "node": true,
       "mocha": true
     },
-    "globals": {
-      "ArrayBuffer": true
-    },
-    "rules": {
-      "no-console": "off",
-      "valid-jsdoc": "warn"
-    },
+    "rules": {},
     "extends": "eslint:recommended"
   }
 }
