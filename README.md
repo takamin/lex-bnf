@@ -1,16 +1,18 @@
 Lex-BNF
 =======
 
-Using `Language` class this module exportes, You can:
+This is a **general-purpose recursive descent parser and evaluator**.
+
+Using exported class `Language`, You can:
 
 1. Defines a syntax rule such as programming languages, expressions, or structured statements.
 1. Parses the code written based on the rules.
 1. Evaluate the result of the parsing.
 
-__NOTE: The class `BNF` which is the old implementation is offered as `Language.BNF`.__
+__NOTE: The deprecated class `BNF` which is the old implementation is offered as `Language.BNF`.__
 
 Demonstration
----------------------
+-------------
 
 ### Evalutes arithmetic expression
 
