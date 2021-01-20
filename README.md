@@ -1,8 +1,7 @@
 Lex-BNF
 =======
 
-<span class="display:inline-block;">
-[![Build Status](https://travis-ci.org/takamin/lex-bnf.svg?branch=master)](https://travis-ci.org/takamin/lex-bnf)
+<span class="display:inline-block;"> [![Build Status](https://travis-ci.org/takamin/lex-bnf.svg?branch=master)](https://travis-ci.org/takamin/lex-bnf)
 [![Coverage Status](https://coveralls.io/repos/github/takamin/lex-bnf/badge.svg?branch=master)](https://coveralls.io/github/takamin/lex-bnf?branch=master)
 ![version](https://img.shields.io/npm/v/lex-bnf)
 ![license](https://img.shields.io/npm/l/lex-bnf)
