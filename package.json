@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/takamin/lex-bnf.git"
+    "url": "https://github.com/takamin/lex-bnf"
   },
   "keywords": [
     "lexical analysis",
