@@ -1,2 +1,4 @@
 "use strict";
-module.exports = require("./lib/bnf.js");
+const Language = require("./lib/language.js");
+Language.BNF =  require("./lib/_bnf.js");
+module.exports = Language;

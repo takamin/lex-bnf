@@ -5,8 +5,10 @@ const BNF = require("../index.js");
 //
 // Basic Terms
 //
+// eslint-disable-next-line no-unused-vars
 const TABLE = BNF.literal("TABLE");
 const SELECT = BNF.literal("SELECT");
+// eslint-disable-next-line no-unused-vars
 const UPDATE = BNF.literal("UPDATE");
 const FROM = BNF.literal("FROM");
 const WHERE = BNF.literal("WHERE");
@@ -262,9 +264,11 @@ function parseSqlishQuery(source) {
         let term = token.getTerm();
         switch(token.getType()) {
         case "STRLIT-DQ":
+            // eslint-disable-next-line no-undef
             token.setTerm("\"" + unescapeDQ(term.replace(/^"(.*)"$/, "$1")) + "\"");
             break;
         case "STRLIT-SQ":
+            // eslint-disable-next-line no-undef
             token.setTerm("'" + unescapeSQ(term.replace(/^'(.*)'$/, "$1")) + "'");
             break;
         default:
@@ -306,6 +310,7 @@ function parseSqlishQuery(source) {
         opt.Limit = limitClause.getWordsList("limit-count")[0].join(" ");
     }
     return opt;
+// eslint-disable-next-line no-extra-semi
 };
 let source = `
     SELECT mainStar, orbitOrder, name

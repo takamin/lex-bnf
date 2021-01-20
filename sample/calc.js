@@ -1,64 +1,5 @@
-Lex-BNF
-=======
-
-This is a **general-purpose recursive descent parser and evaluator**.
-
-Using exported class `Language`, You can:
-
-1. Defines a syntax rule such as programming languages, expressions, or structured statements.
-1. Parses the code written based on the rules.
-1. Evaluate the result of the parsing.
-
-__NOTE: The deprecated class `BNF` which is the old implementation is offered as `Language.BNF`.__
-
-Demonstration
--------------
-
-### Evalutes arithmetic expression
-
-A simple example to evaluate an arithmetic expression from CLI.
-
-```bash
-$ node sample/eval-expr.js '(1 + 2) * ((3 + 4) / 2)'
-10.5
-$
-```
-
-#### __`sample/eval-expr.js`__
-
-```javascript
 "use strict";
-const calc = require("./calc.js");
-const expr = process.argv.slice(2).join("");
-if(!expr) {
-    console.error("Error: no expression to evaluate");
-    console.error("eval-expr '<expression>'");
-}
-try {
-    const result = calc.parse(expr);
-    if(result.error) {
-        const {_term: term, _lineNumber: line, _col: column} = result.errorToken;
-        console.error(`Syntax error: stopped at ${JSON.stringify(term)} (${line}, ${column})`);
-    } else {
-        const value = calc.evaluate(result);
-        if(value instanceof Error) {
-            console.error(`Evaluation error: ${value.message}`);
-        } else {
-            console.log(`${value}`);
-        }
-    }
-} catch(err) {
-    console.error(`Parser Error: stopped at ${err.stack}`);
-}
-```
-
-#### __`sample/calc.js`__
-
-BNF-like definition and evaluators for each terms.
-
-```javascript
-"use strict";
-const Language = require("lex-bnf");
+const Language = require("../lib/language.js");
 const {syntax, literal: lit, numlit} = Language;
 
 // Defines syntax of language by BNF-like definition and evaluator.
@@ -170,9 +111,3 @@ const calc = new Language([
 ]);
 
 module.exports = calc;
-```
-
-LICENSE
--------
-
-This software is released under the MIT License, see [LICENSE](LICENSE)
