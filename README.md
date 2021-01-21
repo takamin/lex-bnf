@@ -20,7 +20,7 @@ __NOTE: The deprecated class `BNF` which is the old implementation is offered as
 Demonstration
 -------------
 
-### Evalutes arithmetic expression
+### Evaluates arithmetic expression
 
 A simple example to evaluate an arithmetic expression from CLI.
 
