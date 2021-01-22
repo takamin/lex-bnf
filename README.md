@@ -50,6 +50,14 @@ $ node sample/eval-expr.js '(1 + 2) * ((3 + 4) / 2)'
 $
 ```
 
+Documents
+----
+
+* [GitHub Pages](https://takamin.github.io/lex-bnf/)
+* API Reference
+    * [v1.0.0](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.0.0/)
+    * [v1.0.1](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.0.1/)
+
 LICENSE
 -------
 
