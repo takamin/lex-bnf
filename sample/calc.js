@@ -6,12 +6,15 @@ const {syntax, literal: lit, numlit} = Language;
 const calc = new Language([
     syntax("calc", [["expression"]]),
 
+    // evaluator can be omitted
     syntax("expression", [["additive-expression"]]),
 
     syntax("additive-expression",
         [
-            // A declaration of term repeating should be declared as recursively and placed
-            // at the end of the rule.
+            // Repeating specifier is not offered.
+            // So, the repeating should be defined recursively.
+            // And the recursive term should be placed at the end of
+            // the rule to prevent infinite recursion on parsing.
             ["multiplicative-expression", lit("+"), "additive-expression"],
             ["multiplicative-expression", lit("-"), "additive-expression"],
             ["multiplicative-expression"],
@@ -24,10 +27,7 @@ const calc = new Language([
             // get no whitespace tokens
             const terms = term.contents();
             const [a, ope, b] = terms;
-            return !ope ? a : {
-                "+": a + b,
-                "-": a - b,
-            }[ope];
+            return !ope ? a : ope == "+" ? a + b: a - b;
         }),
 
     syntax("multiplicative-expression",
@@ -39,10 +39,7 @@ const calc = new Language([
         (term) => {
             const terms = term.contents();
             const [a, ope, b] = terms;
-            return !ope ? a : {
-                "*": a * b,
-                "/": a / b,
-            }[ope];
+            return !ope ? a : ope == "*" ? a * b: a / b;
         }),
 
     syntax("unary-expression", [["postfix-expression"]]),
@@ -68,10 +65,6 @@ const calc = new Language([
         [
             ["floating-real-part", lit("e"), "integer-constant"],
             ["floating-real-part"],
-            // NOTE: There is no optional term, so all patterns should be declared.
-            // With using the optional term, the declarations above is able to be replaced by:
-            //
-            //      floating-constant ::= floating-real-part opt("e") opt(integer-constant)
         ],
         (term) => {
             // Get a token representing this element
@@ -86,6 +79,7 @@ const calc = new Language([
         }),
     syntax("floating-real-part",
         [
+            // The optional term is not offerd, so all patterns should be declared.
             [numlit, lit("."), numlit],
             [numlit, lit(".")],
             [lit("."), numlit],

@@ -1,23 +1,15 @@
 "use strict";
 const calc = require("./calc.js");
-const expr = process.argv.slice(2).join("");
-if(!expr) {
-    console.error("Error: no expression to evaluate");
-    console.error("eval-expr '<expression>'");
-}
-try {
-    const result = calc.parse(expr);
-    if(result.error) {
-        const {_term: term, _lineNumber: line, _col: column} = result.errorToken;
-        console.error(`Syntax error: stopped at ${JSON.stringify(term)} (${line}, ${column})`);
-    } else {
+const expr = process.argv[2];
+const result = calc.parse(expr);
+if(result.error) {
+    console.error(
+        `Syntax error: stopped at ${JSON.stringify(result.errorToken)}`);
+} else {
+    try {
         const value = calc.evaluate(result);
-        if(value instanceof Error) {
-            console.error(`Evaluation error: ${value.message}`);
-        } else {
-            console.log(`${value}`);
-        }
+        console.log(`${value}`);
+    } catch(err) {
+        console.error(`Evaluation error: ${err.message}`);
     }
-} catch(err) {
-    console.error(`Parser Error: stopped at ${err.stack}`);
 }

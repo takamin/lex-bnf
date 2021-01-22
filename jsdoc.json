@@ -9,7 +9,8 @@
         "excludePattern": "_.*\\.js$"
     },
     "plugins": [
-        "plugins/markdown"
+        "plugins/markdown",
+        "plugins/summarize"
     ],
     "templates": {
         "cleverLinks": false,
@@ -22,7 +23,6 @@
         "encoding": "utf8",
         "private": false,
         "deprecated": false,
-        "recurse": true,
-        "template": "./node_modules/minami"
+        "recurse": true
     }
 }
