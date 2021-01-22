@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: term.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: term.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+// eslint-disable-next-line no-unused-vars
+const Token = require("./token.js");
+const debug = require("debug")("Term");
+
+/**
+ * A result of Language#parse()
+ * @class
+ */
+class Term {
+    /**
+     * This is private constructor.
+     * The instance is created from Language#parse().
+     * @constructor
+     */
+    constructor() {
+        /**
+         * A rule name.
+         * @private
+         * @type {string}
+         */
+        this.name = null;
+        /**
+         * Contains a parsing error after the Language#parse
+         * @public
+         * @type {Error}
+         */
+        this.error = null;
+        /**
+         * A token where the parsing error is detected.
+         * @public
+         * @type {Token|null}
+         */
+        this.errorToken = null;
+        /**
+         * Array of all token in this term that is a result of parsing.
+         * If it includes white space tokens, the length is not equal to the
+         * count of terms in the syntax rule of the language definition.
+         * @public
+         * @type {Array&lt;Token|Term>|null}
+         */
+        this.elements = null;
+        /**
+         * A function to get an array of effective tokens evaluated by language
+         * definition. It does not include white spaces.
+         * @public
+         * @type {function():Array&lt;string>}
+         */
+        this.contents = null;
+        /**
+         * A function to get a string joined with all tokens evaluated by
+         * language definition. It might including white space.
+         * @public
+         * @type {function():string}
+         */
+        this.str = null;
+    }
+    /**
+     * @private
+     * @param {string} name A symbol name
+     * @param {{contents:function():string[], str:function():string}} getters
+     *  Extra getter methods
+     * `{contents:function():string[], str:function():string}`
+     * @returns {Term}
+     */
+    static create(name, getters) {
+        debug(`create #${this.name}`);
+        const term = new Term();
+        term.name = name;
+        term.error = null;
+        term.errorToken = null;
+        term.elements = [];
+        term.contents = getters.contents;
+        term.str = getters.str;
+        return term;
+    }
+    /**
+     * @private
+     * @returns {undefined}
+     */
+    clear() {
+        debug(`#${this.name} clear`);
+        this.error = null;
+        this.errorToken = null;
+        this.elements = [];
+    }
+    /**
+     * @private
+     * @param {Error} error An error object
+     * @param {Token|null} token A token where the error is detected
+     * @returns {undefined}
+     */
+    setError(error, token) {
+        debug(`#${this.name} setError`);
+        debug(`  error: ${JSON.stringify(error.message)}`);
+        debug(`  token: ${JSON.stringify(token)}`);
+        this.error = error;
+        this.errorToken = token;
+        this.elements = [];
+    }
+    /**
+     * @private
+     * @param {Token|Term} term term
+     * @returns {undefined}
+     */
+    addTerm(term) {
+        debug(`#${this.name} addTerm ${JSON.stringify(term)}`);
+        this.elements.push(term);
+    }
+    /**
+     * @private
+     * @returns {string} content description
+     */
+    toString() {
+        const _toString = (term, lines, depth) => {
+            const indent = `${".   ".repeat(depth)}`;
+            term.elements.forEach((element, i) => {
+                if(element instanceof Token) {
+                    lines.push(`${indent}[${i}]${
+                        JSON.stringify(element.getTerm())}:${term.name}`);
+                } else {
+                    lines.push(`${indent}[${i}]${
+                        element.name}`);
+                    _toString(element, lines, depth + 1);
+                }
+            });
+            if(term.error != null) {
+                const token = `${JSON.stringify(term.errorToken)}`;
+                lines.push(`ERROR at ${token} in term ${term.name}`);
+            }
+            return lines;
+        }
+        return _toString(this, [], 0).join("\n");
+    }
+}
+module.exports = Term;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Language.html">Language</a></li><li><a href="LexElement.html">LexElement</a></li><li><a href="SyntaxRule.html">SyntaxRule</a></li><li><a href="Term.html">Term</a></li><li><a href="Token.html">Token</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Jan 22 2021 13:25:07 GMT+0900 (日本標準時)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
