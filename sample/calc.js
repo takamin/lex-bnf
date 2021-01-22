@@ -11,13 +11,9 @@ const calc = new Language([
 
     syntax("additive-expression",
         [
-            // Repeating specifier is not offered.
-            // So, the repeating should be defined recursively.
-            // And the recursive term should be placed at the end of
-            // the rule to prevent infinite recursion on parsing.
-            ["multiplicative-expression", lit("+"), "additive-expression"],
-            ["multiplicative-expression", lit("-"), "additive-expression"],
-            ["multiplicative-expression"],
+            // The trailing `*` is a repeating specifier.
+            // It avoids an infinite recursion leading from left-recursion.
+            ["multiplicative-expression", "additive-expression-rest*"],
         ],
         /**
          * evaluate 'additive-expression'
@@ -25,21 +21,53 @@ const calc = new Language([
          */
         (term) => {
             // get no whitespace tokens
-            const terms = term.contents();
-            const [a, ope, b] = terms;
-            return !ope ? a : ope == "+" ? a + b: a - b;
+            const terms = term.contents().flat();
+            let acc = terms[0];
+            for(let i = 1; i < terms.length; i += 2) {
+                const ope = terms[i];
+                const value = terms[i + 1];
+                switch(ope) {
+                case "+": acc += value; break;
+                case "-": acc -= value; break;
+                }
+            }
+            return acc;
+        }),
+
+    syntax("additive-expression-rest",
+        [
+            [lit("+"), "multiplicative-expression"],
+            [lit("-"), "multiplicative-expression"],
+        ],
+        (term) => {
+            return term.contents();
         }),
 
     syntax("multiplicative-expression",
         [
-            ["unary-expression", lit("*"), "multiplicative-expression"],
-            ["unary-expression", lit("/"), "multiplicative-expression"],
-            ["unary-expression"],
+            ["unary-expression", "multiplicative-expression-rest*"],
         ],
         (term) => {
-            const terms = term.contents();
-            const [a, ope, b] = terms;
-            return !ope ? a : ope == "*" ? a * b: a / b;
+            const terms = term.contents().flat();
+            let acc = terms[0];
+            for(let i = 1; i < terms.length; i += 2) {
+                const ope = terms[i];
+                const value = terms[i + 1];
+                switch(ope) {
+                case "*": acc *= value; break;
+                case "/": acc /= value; break;
+                }
+            }
+            return acc;
+        }),
+
+    syntax("multiplicative-expression-rest",
+        [
+            [lit("*"), "unary-expression"],
+            [lit("/"), "unary-expression"],
+        ],
+        (term) => {
+            return term.contents();
         }),
 
     syntax("unary-expression", [["postfix-expression"]]),
