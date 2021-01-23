@@ -21,7 +21,7 @@ const calc = new Language([
          */
         (term) => {
             // get no whitespace tokens
-            const terms = term.contents().flat();
+            const terms = [].concat(...term.contents());
             let acc = terms[0];
             for(let i = 1; i < terms.length; i += 2) {
                 const ope = terms[i];
@@ -48,7 +48,7 @@ const calc = new Language([
             ["unary-expression", "multiplicative-expression-rest*"],
         ],
         (term) => {
-            const terms = term.contents().flat();
+            const terms = [].concat(...term.contents());
             let acc = terms[0];
             for(let i = 1; i < terms.length; i += 2) {
                 const ope = terms[i];

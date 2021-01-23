@@ -68,7 +68,7 @@ describe("Language", () => {
                             [["integer-constant", "additive-expression-rest*"]],
                             (term) => {
                                 debug(`additive-expression.term: ${JSON.stringify(term, null, 2)}`);
-                                const terms = term.contents().flat();
+                                const terms = [].concat(...term.contents());
                                 debug(`additive-expression.terms: ${JSON.stringify(terms, null, 2)}`);
                                 let acc = terms[0];
                                 for(let i = 1; i < terms.length; i += 2) {
