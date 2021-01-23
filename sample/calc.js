@@ -11,8 +11,9 @@ const calc = new Language([
 
     syntax("additive-expression",
         [
-            // The trailing `*` is a repeating specifier.
-            // It avoids an infinite recursion leading from left-recursion.
+            // The trailing `*` is a repetition specifier.
+            // It can avoid an infinite recursion leading from
+            // left-recursion.
             ["multiplicative-expression", "additive-expression-rest*"],
         ],
         /**

@@ -30,7 +30,11 @@ __Paramters of `Language.syntax()`:__
 
 1. A name of the syntax rule.
 1. An array of a rule which is an array of terms.
+    * A character '*' at the end of a rule name as an element of the terms is __Repetition Specifier__ that means the rule is repeatable.
+    * See the rule declaration part of `additive-expression` in [sample/calc.js](https://github.com/takamin/lex-bnf/blob/master/sample/calc.js) to use the feature.
 1. An evaluator function (optional). It can be omitted when the second parameter contains only one rule which containing only one other name of syntax rule.
+
+
 
 Demo: Evaluating arithmetic expression
 ----
@@ -55,8 +59,10 @@ Documents
 
 * [GitHub Pages](https://takamin.github.io/lex-bnf/)
 * API Reference
-    * [v1.0.0](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.0.0/)
+    * [v1.1.0](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.1.0/)
+        * Repetition specifier `*` is available for the rule name. It is important for getting correct answer of multi term arithmetic expressions such as `1 - 2 - 3 = ?`.
     * [v1.0.1](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.0.1/)
+    * [v1.0.0](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.0.0/)
 
 LICENSE
 -------
