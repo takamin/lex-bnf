@@ -20,103 +20,103 @@ const OR = BNF.literal("OR");
 const NOT = BNF.literal("NOT");
 const IN = BNF.literal("IN");
 
-let SQLISH_LEX_TOKEN_DEF = new BNF("words", {
+const SQLISH_LEX_TOKEN_DEF = new BNF("words", {
     "words": [
-        [ "word", "words", ],
-        [ "word", ],
+        ["word", "words"],
+        ["word"],
     ],
     "word": [
-        [ "num-literal" ],
-        [ "comparison-operator" ],
-        [ "attribute-value-placeholder" ],
-        [ "attribute-path-name" ],
-        [ "comment-mark" ],
-        [ "escaped-char" ],
-        [ "string-literal" ],
-        [ "block-comment" ],
-        [ "line-comment" ],
-        [ BNF.ident ],
-        [ BNF.lex("PUNCT") ],
-        [ BNF.strlitDQ ],
-        [ BNF.strlitSQ ],
-        [ BNF.lex("WS") ],
-        [ BNF.lex("WS-LINCMT") ],
-        [ BNF.lex("WS-BLKCMT") ],
+        ["num-literal"],
+        ["comparison-operator"],
+        ["attribute-value-placeholder"],
+        ["attribute-path-name"],
+        ["comment-mark"],
+        ["escaped-char"],
+        ["string-literal"],
+        ["block-comment"],
+        ["line-comment"],
+        [BNF.ident],
+        [BNF.lex("PUNCT")],
+        [BNF.strlitDQ],
+        [BNF.strlitSQ],
+        [BNF.lex("WS")],
+        [BNF.lex("WS-LINCMT")],
+        [BNF.lex("WS-BLKCMT")],
     ],
     "num-literal": [
-        [ "fractional-literal" ],
-        [ "int-literal" ],
+        ["fractional-literal"],
+        ["int-literal"],
     ],
     "int-literal": [
-        [ "dec-num-literal" ],
+        ["dec-num-literal"],
     ],
     "dec-num-literal": [
-        [ "[sign]", BNF.lex("NUMLIT"), ],
+        ["[sign]", BNF.lex("NUMLIT")],
     ],
     "sign": [
-        [ BNF.literal("+") ],
-        [ BNF.literal("-") ],
+        [BNF.literal("+")],
+        [BNF.literal("-")],
     ],
     "fractional-literal": [
-        [ "[sign]", BNF.lex("NUMLIT"), "fractional-part" ],
+        ["[sign]", BNF.lex("NUMLIT"), "fractional-part"],
     ],
     "fractional-part": [
-        [ BNF.literal("."), BNF.lex("NUMLIT"), "[exp-part]", ],
+        [BNF.literal("."), BNF.lex("NUMLIT"), "[exp-part]"],
     ],
     "exp-part": [
-        [ BNF.literal("E"), "[sign]", BNF.lex("NUMLIT"), ],
-        [ BNF.literal("e"), "[sign]", BNF.lex("NUMLIT"), ],
+        [BNF.literal("E"), "[sign]", BNF.lex("NUMLIT")],
+        [BNF.literal("e"), "[sign]", BNF.lex("NUMLIT")],
     ],
     "comparison-operator": [
-        [ BNF.literal("<"), BNF.literal("=") ],
-        [ BNF.literal("<"), BNF.literal(">") ],
-        [ BNF.literal(">"), BNF.literal("=") ],
-        [ BNF.literal(">"), ],
-        [ BNF.literal("="), ],
-        [ BNF.literal("<"), ],
+        [BNF.literal("<"), BNF.literal("=")],
+        [BNF.literal("<"), BNF.literal(">")],
+        [BNF.literal(">"), BNF.literal("=")],
+        [BNF.literal(">")],
+        [BNF.literal("=")],
+        [BNF.literal("<")],
     ],
     "attribute-value-placeholder": [
-        [ BNF.literal(":"), BNF.ident ],
+        [BNF.literal(":"), BNF.ident],
     ],
     "attribute-path-name": [
-        [ BNF.ident, BNF.literal("."), "attribute-path-name" ],
-        [ BNF.ident, BNF.literal("."), BNF.ident ],
+        [BNF.ident, BNF.literal("."), "attribute-path-name"],
+        [BNF.ident, BNF.literal("."), BNF.ident],
     ],
-    "block-comment":[
-        [ BNF.literal("/*"), BNF.literalUntil("*/") ],
+    "block-comment": [
+        [BNF.literal("/*"), BNF.literalUntil("*/")],
     ],
-    "line-comment":[
-        [ BNF.literal("//"), BNF.literalUntil("\n") ],
-        [ BNF.literal("--"), BNF.literalUntil("\n") ],
+    "line-comment": [
+        [BNF.literal("//"), BNF.literalUntil("\n")],
+        [BNF.literal("--"), BNF.literalUntil("\n")],
     ],
     "comment-mark": [
-        [ BNF.literal("/"), BNF.literal("*") ],
-        [ BNF.literal("*"), BNF.literal("/") ],
-        [ BNF.literal("/"), BNF.literal("/") ],
-        [ BNF.literal("-"), BNF.literal("-") ],
+        [BNF.literal("/"), BNF.literal("*")],
+        [BNF.literal("*"), BNF.literal("/")],
+        [BNF.literal("/"), BNF.literal("/")],
+        [BNF.literal("-"), BNF.literal("-")],
     ],
     "escaped-char": [
-        [ BNF.literal("\\"), BNF.literal("\\"), ],
-        [ BNF.literal("\\"), BNF.literal("\""), ],
-        [ BNF.literal("\\"), BNF.literal("'"), ],
+        [BNF.literal("\\"), BNF.literal("\\")],
+        [BNF.literal("\\"), BNF.literal("\"")],
+        [BNF.literal("\\"), BNF.literal("'")],
     ],
     "string-literal": [
-        [ "string-literal-dq" ],
-        [ "string-literal-sq" ],
+        ["string-literal-dq"],
+        ["string-literal-sq"],
     ],
     "string-literal-dq": [
-        [ BNF.literal('"'), "string-literal-dq-end" ],
+        [BNF.literal("\""), "string-literal-dq-end"],
     ],
     "string-literal-dq-end": [
-        [ BNF.literalUntil('"') ],
-        [ BNF.literal('"') ],
+        [BNF.literalUntil("\"")],
+        [BNF.literal("\"")],
     ],
     "string-literal-sq": [
-        [ BNF.literal("'"), "string-literal-sq-end" ],
+        [BNF.literal("'"), "string-literal-sq-end"],
     ],
     "string-literal-sq-end": [
-        [ BNF.literalUntil("'") ],
-        [ BNF.literal("'") ],
+        [BNF.literalUntil("'")],
+        [BNF.literal("'")],
     ],
 }, {
     "num-literal": "NUMLIT",
@@ -131,137 +131,136 @@ let SQLISH_LEX_TOKEN_DEF = new BNF("words", {
     "string-literal-sq": "STRLIT-SQ",
 });
 
-let SQLISH_BNF_DEF = {
+const SQLISH_BNF_DEF = {
     "sqlish-query": [
-        [ "[select-clause]", "from-clause", "where-key-clause",
-            "[filter-clause]", "[limit-clause]" ],
+        ["[select-clause]", "from-clause", "where-key-clause",
+            "[filter-clause]", "[limit-clause]"],
     ],
     "select-clause": [
-        [ SELECT, "key-list" ],
+        [SELECT, "key-list"],
     ],
     "key-list": [
-        [ "column-name", BNF.comma, "key-list" ],
-        [ "column-name" ],
+        ["column-name", BNF.comma, "key-list"],
+        ["column-name"],
     ],
     "column-name": [
-        [ BNF.ident ],
+        [BNF.ident],
     ],
     "from-clause": [
-        [ FROM, "table-name" ],
+        [FROM, "table-name"],
     ],
     "table-name": [
-        [ BNF.ident ],
+        [BNF.ident],
     ],
     "where-key-clause": [
-        [ WHERE, "condition-expression" ],
+        [WHERE, "condition-expression"],
     ],
     "filter-clause": [
-        [ FILTER, "condition-expression" ],
+        [FILTER, "condition-expression"],
     ],
-    "condition-expression" : [
-        [ "or-expression" ],
+    "condition-expression": [
+        ["or-expression"],
     ],
-    "or-expression" : [
-        [ "and-expression", OR, "condition-expression" ],
-        [ "and-expression" ],
+    "or-expression": [
+        ["and-expression", OR, "condition-expression"],
+        ["and-expression"],
     ],
-    "and-expression" : [
-        [ "compare-expression", AND, "condition-expression" ],
-        [ "compare-expression" ],
+    "and-expression": [
+        ["compare-expression", AND, "condition-expression"],
+        ["compare-expression"],
     ],
     "compare-expression": [
-        [ BNF.literal("("), "condition-expression", BNF.literal(")") ],
-        [ BNF.ident, "comparator", "value" ],
-        [ BNF.ident, BETWEEN, "between-range" ],
-        [ BNF.ident, IN, BNF.literal("("), "value-list", BNF.literal(")") ],
-        [ "function" ],
-        [ NOT, "condition-expression" ],
+        [BNF.literal("("), "condition-expression", BNF.literal(")")],
+        [BNF.ident, "comparator", "value"],
+        [BNF.ident, BETWEEN, "between-range"],
+        [BNF.ident, IN, BNF.literal("("), "value-list", BNF.literal(")")],
+        ["function"],
+        [NOT, "condition-expression"],
     ],
     "comparator": [
-        [BNF.literal("=") ],
-        [BNF.literal("<") ],
-        [BNF.literal("<=") ],
-        [BNF.literal(">") ],
-        [BNF.literal(">=") ],
-        [BNF.literal("<>") ],
+        [BNF.literal("=")],
+        [BNF.literal("<")],
+        [BNF.literal("<=")],
+        [BNF.literal(">")],
+        [BNF.literal(">=")],
+        [BNF.literal("<>")],
     ],
     "function": [
-        [ BNF.literal("attribute_exists"), BNF.literal("("), "path", BNF.literal(")") ],
-        [ BNF.literal("attribute_not_exists"), BNF.literal("("), "path", BNF.literal(")") ],
-        [ BNF.literal("attribute_type"), BNF.literal("("),
-                "path", BNF.comma, "attribute-type",
-            BNF.literal(")") ],
-        [ BNF.literal("begins_with"), BNF.literal("("),
-                "path", BNF.comma, "value",
-            BNF.literal(")") ],
-        [ BNF.literal("contains"), BNF.literal("("),
-                "path", BNF.comma, "value",
-            BNF.literal(")") ],
-        [ BNF.literal("size"), BNF.literal("("), "path", BNF.literal(")") ],
+        [BNF.literal("attribute_exists"), BNF.literal("("), "path", BNF.literal(")")],
+        [BNF.literal("attribute_not_exists"), BNF.literal("("), "path", BNF.literal(")")],
+        [BNF.literal("attribute_type"), BNF.literal("("),
+            "path", BNF.comma, "attribute-type",
+            BNF.literal(")")],
+        [BNF.literal("begins_with"), BNF.literal("("),
+            "path", BNF.comma, "value",
+            BNF.literal(")")],
+        [BNF.literal("contains"), BNF.literal("("),
+            "path", BNF.comma, "value",
+            BNF.literal(")")],
+        [BNF.literal("size"), BNF.literal("("), "path", BNF.literal(")")],
     ],
     "path": [
-        [ BNF.ident, BNF.literal("."), "path" ],
-        [ BNF.ident ],
+        [BNF.ident, BNF.literal("."), "path"],
+        [BNF.ident],
     ],
     "between-range": [
-        [ "value", AND, "value" ],
+        ["value", AND, "value"],
     ],
     "value-list": [
-        ["value", BNF.comma, "value-list" ],
-        ["value" ],
+        ["value", BNF.comma, "value-list"],
+        ["value"],
     ],
     "value": [
-        [ BNF.numlit ],
-        [ BNF.strlitDQ ],
-        [ BNF.strlitSQ ],
-        [ BNF.ident ],
+        [BNF.numlit],
+        [BNF.strlitDQ],
+        [BNF.strlitSQ],
+        [BNF.ident],
     ],
     "limit-clause": [
-        [ LIMIT, "limit-count" ],
+        [LIMIT, "limit-count"],
     ],
     "limit-count": [
-        [ BNF.numlit ],
+        [BNF.numlit],
     ],
     "key-type": [
-        [ BNF.literal("HASH") ],
-        [ BNF.literal("RANGE") ],
+        [BNF.literal("HASH")],
+        [BNF.literal("RANGE")],
     ],
     "key-attribute-type": [
-        [ BNF.literal("S") ],
-        [ BNF.literal("N") ],
-        [ BNF.literal("BOOL") ],
+        [BNF.literal("S")],
+        [BNF.literal("N")],
+        [BNF.literal("BOOL")],
     ],
     "attribute-type": [
-        [ BNF.literal("S") ],
-        [ BNF.literal("SS") ],
-        [ BNF.literal("N") ],
-        [ BNF.literal("NS") ],
-        [ BNF.literal("B") ],
-        [ BNF.literal("BS") ],
-        [ BNF.literal("BOOL") ],
-        [ BNF.literal("NULL") ],
-        [ BNF.literal("L") ],
-        [ BNF.literal("M") ],
+        [BNF.literal("S")],
+        [BNF.literal("SS")],
+        [BNF.literal("N")],
+        [BNF.literal("NS")],
+        [BNF.literal("B")],
+        [BNF.literal("BS")],
+        [BNF.literal("BOOL")],
+        [BNF.literal("NULL")],
+        [BNF.literal("L")],
+        [BNF.literal("M")],
     ],
 };
 
 /**
  * Interpret a SQLish sentence to a DynamoDb QUERY API parameter.
  * @param {string} source A sentence to convert
- * @returns {object} as a parameter for the QUERY API of DynamoDb
+ * @return {object} as a parameter for the QUERY API of DynamoDb
  */
 function parseSqlishQuery(source) {
-
-    let lexTokens = LexAnalyzer.parse(source);
-    let bindedTokens = SQLISH_LEX_TOKEN_DEF.buildWords(lexTokens);
-    let tokens = bindedTokens.filter(
-        lex => lex != null && !lex.isWhiteSpace());
+    const lexTokens = LexAnalyzer.parse(source);
+    const bindedTokens = SQLISH_LEX_TOKEN_DEF.buildWords(lexTokens);
+    const tokens = bindedTokens.filter(
+        (lex) => lex != null && !lex.isWhiteSpace());
 
     if(tokens != null && !Array.isArray(tokens) && !tokens.match) {
         return tokens; // tokens is BNF.Result object.
     }
-    tokens.forEach( token => {
-        let term = token.getTerm();
+    tokens.forEach( (token) => {
+        const term = token.getTerm();
         switch(token.getType()) {
         case "STRLIT-DQ":
             // eslint-disable-next-line no-undef
@@ -276,18 +275,18 @@ function parseSqlishQuery(source) {
         }
     });
 
-    let bnf = new BNF("sqlish-query", SQLISH_BNF_DEF);
-    let st = bnf.parseTokens(tokens);
-    let opt = {};
+    const bnf = new BNF("sqlish-query", SQLISH_BNF_DEF);
+    const st = bnf.parseTokens(tokens);
+    const opt = {};
 
-    let fromClause = st.getTerm("from-clause");
+    const fromClause = st.getTerm("from-clause");
     if(!fromClause.match) {
         throw new Error("the from-clause not found");
     } else {
         opt.TableName = fromClause.getWordsList("table-name")[0].join("");
     }
 
-    let whereClause = st.getTerm("where-key-clause");
+    const whereClause = st.getTerm("where-key-clause");
     if(!whereClause.match) {
         throw new Error("the where clause not found");
     } else {
@@ -295,28 +294,28 @@ function parseSqlishQuery(source) {
             whereClause.getWordsList("condition-expression")[0].join(" ");
     }
 
-    let selectClause = st.getTerm("select-clause");
+    const selectClause = st.getTerm("select-clause");
     if(selectClause.match) {
         opt.ProjectionExpression =
             selectClause.getWordsList("key-list")[0].join("");
     }
-    let filterClause = st.getTerm("filter-clause");
+    const filterClause = st.getTerm("filter-clause");
     if(filterClause.match) {
         opt.FilterExpression =
             filterClause.getWordsList("condition-expression")[0].join(" ");
     }
-    let limitClause = st.getTerm("limit-clause");
+    const limitClause = st.getTerm("limit-clause");
     if(limitClause.match) {
         opt.Limit = limitClause.getWordsList("limit-count")[0].join(" ");
     }
     return opt;
 // eslint-disable-next-line no-extra-semi
 };
-let source = `
+const source = `
     SELECT mainStar, orbitOrder, name
     FROM stars
     WHERE mainStar=:mainStar`;
-let result = parseSqlishQuery(source);
+const result = parseSqlishQuery(source);
 
 console.log(`SOURCE:${source}
-RESULT:${JSON.stringify(result, null, "    ")}`)
+RESULT:${JSON.stringify(result, null, "    ")}`);

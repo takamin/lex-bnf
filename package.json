@@ -1,6 +1,6 @@
 {
   "name": "lex-bnf",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "General-purpose recursive descent parser and evaluator",
   "main": "index.js",
   "directories": {
@@ -8,10 +8,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "eslint . && mocha",
     "coverage": "nyc mocha",
     "coveralls": "nyc mocha && nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "generate-docs": "jsdoc --configure jsdoc.json --verbose"
   },
   "repository": {
@@ -36,23 +37,11 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "coveralls": "^3.1.0",
-    "eslint": "^7.18.0",
-    "eslint-plugin-jsdoc": "^31.0.8",
+    "eslint": "^7.19.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-jsdoc": "^31.6.0",
     "jsdoc": "^3.6.6",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0"
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 2020
-    },
-    "env": {
-      "es6": true,
-      "browser": true,
-      "node": true,
-      "mocha": true
-    },
-    "rules": {},
-    "extends": "eslint:recommended"
   }
 }

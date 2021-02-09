@@ -6,7 +6,8 @@ const {syntax, literal: lit, numlit} = Language;
 const calc = new Language([
     syntax("calc", [["expression"]]),
 
-    // evaluator can be omitted
+    // The evaluator is omittable when the rules contains only one
+    // term such as  `additive-expression` below.
     syntax("expression", [["additive-expression"]]),
 
     syntax("additive-expression",
@@ -19,6 +20,7 @@ const calc = new Language([
         /**
          * evaluate 'additive-expression'
          * @param {Term} term result of parsing 'additive-expression'
+         * @return {number} A result of the calculation.
          */
         (term) => {
             // get no whitespace tokens
@@ -76,13 +78,13 @@ const calc = new Language([
     syntax("postfix-expression", [["primary-expression"]]),
 
     syntax("primary-expression", [
-            ["literal"],
-            [lit("("), "expression", lit(")")],
-        ],
-        (term) => {
-            const terms = term.contents();
-            return (terms[0] !== "(" ? terms[0] : terms[1]);
-        }),
+        ["literal"],
+        [lit("("), "expression", lit(")")],
+    ],
+    (term) => {
+        const terms = term.contents();
+        return (terms[0] !== "(" ? terms[0] : terms[1]);
+    }),
 
     syntax("literal",
         [
@@ -102,7 +104,7 @@ const calc = new Language([
             // If the string includes white spaces, this method throws an error.
             // The error will be returned from `Language#evaluate()`.
             if(/\s/.test(s)) {
-                throw new Error(`invalid text for floating-constant`);
+                throw new Error("invalid text for floating-constant");
             }
             return parseFloat(s);
         }),
