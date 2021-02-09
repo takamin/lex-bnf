@@ -59,6 +59,8 @@ Documents
 
 * [GitHub Pages](https://takamin.github.io/lex-bnf/)
 * API Reference
+    * [v1.1.1](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.1.1/)
+        * Fix the issue [#16](https://github.com/takamin/lex-bnf/issues/16)
     * [v1.1.0](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.1.0/)
         * Repetition specifier `*` is available for the rule name. It is important for getting correct answer of multi term arithmetic expressions such as `1 - 2 - 3 = ?`.
     * [v1.0.1](https://takamin.github.io/lex-bnf/docs/lex-bnf/1.0.1/)
