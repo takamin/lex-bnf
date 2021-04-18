@@ -1,6 +1,6 @@
 {
   "name": "lex-bnf",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "General-purpose recursive descent parser and evaluator",
   "main": "index.js",
   "directories": {
